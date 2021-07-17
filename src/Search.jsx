@@ -33,7 +33,7 @@ class Search extends React.Component {
             className="custom-select"
             onChange={(e) => this.setState({ type: e.target.value })}
           >
-            <option value="1">type</option>
+            <option>type</option>
             {this.state.allPets.types.map((el) => {
               return <option>{el}</option>;
             })}
@@ -42,7 +42,7 @@ class Search extends React.Component {
             className="custom-select"
             onChange={(e) => this.setState({ breed: e.target.value })}
           >
-            <option value="1">breed</option>
+            <option>breed</option>
             {this.state.allPets.breeds.map((el) => {
               return <option>{el}</option>;
             })}
@@ -52,7 +52,11 @@ class Search extends React.Component {
               className="btn btn-primary"
               type="button"
               onClick={() => {
-                this.props.sendSearchQuery(this.state.city, this.state.type,this.state.breed);
+                this.props.sendSearchQuery(
+                  this.state.city,
+                  this.state.type,
+                  this.state.breed
+                );
               }}
             >
               Submit

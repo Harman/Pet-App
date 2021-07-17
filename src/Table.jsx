@@ -34,8 +34,6 @@ class Table extends React.Component {
       return breed === el.breed || breed === "breed";
     });
 
-    console.log(animalsSearched);
-
     return (
       <div>
         <table className="table">
