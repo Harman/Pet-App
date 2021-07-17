@@ -1,7 +1,12 @@
 import React from "react";
 
 class Search extends React.Component {
-  state = { allPetTypes: [], searchInput: "", type: "All" };
+  state = {
+    allPets: { cities: [], types: [], breeds: [] },
+    city: "",
+    type: "type",
+    breed: "breed",
+  };
 
   componentDidMount() {
     fetch("/pettypes")
@@ -9,7 +14,7 @@ class Search extends React.Component {
         return res.json();
       })
       .then((json) => {
-        this.setState({ allPetTypes: json });
+        this.setState({ allPets: json });
       });
   }
 
@@ -20,16 +25,25 @@ class Search extends React.Component {
           <input
             type="text"
             className="form-control"
-            placeholder="Search..."
-            onChange={(e) => this.setState({ input: e.target.value })}
+            placeholder="Search City..."
+            onChange={(e) => this.setState({ city: e.target.value })}
           ></input>
 
           <select
             className="custom-select"
             onChange={(e) => this.setState({ type: e.target.value })}
           >
-            <option value="1">All</option>
-            {this.state.allPetTypes.map((el) => {
+            <option value="1">type</option>
+            {this.state.allPets.types.map((el) => {
+              return <option>{el}</option>;
+            })}
+          </select>
+          <select
+            className="custom-select"
+            onChange={(e) => this.setState({ breed: e.target.value })}
+          >
+            <option value="1">breed</option>
+            {this.state.allPets.breeds.map((el) => {
               return <option>{el}</option>;
             })}
           </select>
@@ -38,8 +52,7 @@ class Search extends React.Component {
               className="btn btn-primary"
               type="button"
               onClick={() => {
-                console.log(this.state.input);
-                console.log(this.state.type);
+                this.props.sendSearchQuery(this.state.city, this.state.type,this.state.breed);
               }}
             >
               Submit
